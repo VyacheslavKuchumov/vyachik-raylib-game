@@ -26,7 +26,7 @@
 GameScreen currentScreen = LOGO;
 Font font = { 0 };
 Music music = { 0 };
-Sound fxCoin = { 0 };
+Sound fxMouseClick = { 0 };
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
@@ -65,8 +65,8 @@ int main(void)
 
     // Load global data (assets that must be available in all screens, i.e. font)
     font = LoadFont("resources/mecha.png");
-    //music = LoadMusicStream("resources/ambient.ogg"); // TODO: Load music
-    fxCoin = LoadSound("resources/coin.wav");
+    music = LoadMusicStream("resources/space-ambient-cinematic.ogg"); // TODO: Load music
+    fxMouseClick = LoadSound("resources/computer-mouse-click.wav");
 
     SetMusicVolume(music, 1.0f);
     PlayMusicStream(music);
@@ -74,6 +74,8 @@ int main(void)
     // Setup and init first screen
     currentScreen = LOGO;
     InitLogoScreen();
+    // currentScreen = TITLE;
+    // InitTitleScreen();
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -104,7 +106,7 @@ int main(void)
     // Unload global data loaded
     UnloadFont(font);
     UnloadMusicStream(music);
-    UnloadSound(fxCoin);
+    UnloadSound(fxMouseClick);
 
     CloseAudioDevice();     // Close audio context
 
@@ -222,7 +224,7 @@ static void UpdateDrawFrame(void)
 {
     // Update
     //----------------------------------------------------------------------------------
-    //UpdateMusicStream(music);       // NOTE: Music keeps playing between screens
+    UpdateMusicStream(music);       // NOTE: Music keeps playing between screens
 
     if (!onTransition)
     {
