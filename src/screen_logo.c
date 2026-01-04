@@ -127,6 +127,12 @@ void UpdateLogoScreen(void)
 // Logo Screen Draw logic
 void DrawLogoScreen(void)
 {
+    // Skip logo screen
+    if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_SPACE) || IsGestureDetected(GESTURE_TAP))
+    {
+        finishScreen = 1;
+    }
+
     if (state == 0)         // Draw blinking top-left square corner
     {
         if ((framesCounter/10)%2) DrawRectangle(logoPositionX, logoPositionY, 16, 16, BLACK);
