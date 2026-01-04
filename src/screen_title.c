@@ -125,6 +125,8 @@ void DrawTitleScreen(void)
             DrawLineV(startPos, starsScreenPos[i], RAYWHITE);
         }
     }
+
+    DrawText("PRESS ENTER TO START A GAME", GetScreenWidth()/2 - 550, GetScreenHeight()/2, 64, RAYWHITE);
 }
 
 // Title Screen Unload logic
