@@ -68,6 +68,8 @@ typedef struct {
 //----------------------------------------------------------------------------------
 static Vector2 sensitivity = { 0.001f, 0.001f };
 
+Sound fxFart = { 0 };
+
 static Body player = { 0 };
 static Vector2 lookRotation = { 0 };
 static float headTimer = 0.0f;
@@ -93,6 +95,8 @@ void InitGameplayScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+
+    fxFart = LoadSound("resources/dry-fart.ogg");
 
     // Initialize camera variables
     // NOTE: UpdateCameraFPS() takes care of the rest
@@ -214,9 +218,9 @@ void UpdateBody(Body *body, float rot, char side, char forward, bool jumpPressed
         body->velocity.y = JUMP_FORCE;
         body->isGrounded = false;
 
-        // Sound can be played at this moment
-        //SetSoundPitch(fxJump, 1.0f + (GetRandomValue(-100, 100)*0.001));
-        //PlaySound(fxJump);
+        // Jump sound can be played at this moment
+        SetSoundPitch(fxFart, 1.0f + (GetRandomValue(-100, 100)*0.001));
+        PlaySound(fxFart);
     }
 
     Vector3 front = (Vector3){ sinf(rot), 0.f, cosf(rot) };
