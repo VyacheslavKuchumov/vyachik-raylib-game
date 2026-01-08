@@ -221,7 +221,12 @@ void UpdateBody(Body *body, float rot, char side, char forward, bool jumpPressed
 
     Vector3 front = (Vector3){ sinf(rot), 0.f, cosf(rot) };
     Vector3 right = (Vector3){ cosf(-rot), 0.f, sinf(-rot) };
-
+    if (!body->isGrounded)
+    {
+        // Reduce air control
+        front = Vector3Scale(front, 0.1f);
+        right = Vector3Scale(right, 0.1f);
+    }
     Vector3 desiredDir = (Vector3){ input.x*right.x + input.y*front.x, 0.0f, input.x*right.z + input.y*front.z, };
     body->dir = Vector3Lerp(body->dir, desiredDir, CONTROL*delta);
 
